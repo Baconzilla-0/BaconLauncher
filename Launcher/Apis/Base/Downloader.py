@@ -1,35 +1,47 @@
 import requests
 import os
-import Utils
+import json
+
+from . import Utils
 
 class Downloader:
-    def __init__(self, Path: str, Steps: list, Final: str = None):
+    def __init__(self, Path: str, Steps: list, Final: str = None, FinalStep: int = None):
         self.Path = Path
         self.Steps = Steps
+
         self.Final = Final
+        self.FinalStep = FinalStep
+
         self.Goal = ""
 
     def RunSteps(self):
-        Path = self.Path
+        Last = self.Steps[0].Path
 
         for Index, Step in enumerate(self.Steps):
-            Step.Path = Path
+            if type(Step) is str:
+                Last = f"{Last}/{Step}"
+            else:
+                Step.Path = Last
+                Step.Output = Last
 
-            Step.Run()
-            Path = Step.Select()
+                Step.Run()
+                Step.Select()
+                Last = Step.Output
 
             if Index == len(self.Steps) - 1:
-                self.Goal = Path
+                self.Goal = Last
 
-            print(Path)
+            print(Last)
 
         print(self.Goal)
 
 
     def Download(self, Destination):
         if self.Final != None:
-            FinalRequest = requests.get(self.Goal)
-            self.Goal = self.Goal + Utils.Get(FinalRequest, self.Final)
+            FinalRequest = requests.get(self.Steps[self.FinalStep].Output)
+            print(FinalRequest.text)
+            FinalRequest = json.loads(FinalRequest.text)
+            self.Goal = f"{self.Goal}/{Utils.Get(FinalRequest, self.Final)}"
 
         DownloadRequest = requests.get(self.Goal)
 

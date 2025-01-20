@@ -1,6 +1,10 @@
 def Get(Dict: dict, Path: str):
     Result = Dict
-    for Level in Path.split("/"):
-        Result = Result[Level]
+    if Path == None:
+        return Result
+    else:
+        for Level in Path.split("/"):
+            if Level != "":
+                Result = Result[Level]
 
-    return Result
+        return Result

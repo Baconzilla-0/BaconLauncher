@@ -1,7 +1,7 @@
 import requests
 import json
 
-import Utils
+from . import Utils
 
 class Step:
     def __init__(self, Path, Return, OptionPath, Title, Prompt, Selection = None):
@@ -24,7 +24,7 @@ class Step:
         self.List = Utils.Get(self.List, self.Return)
 
     def Select(self):
-        print({self.Title})
+        print(self.Title)
 
 
         for Index, Option in enumerate(self.List):
@@ -37,14 +37,14 @@ class Step:
                 try:
                     Selected = self.List[int(self.Selection)]
 
-                    self.Output = self.Output + Utils.Get(Selected, self.OptionPath)
+                    self.Output = f"{self.Output}/{self.Return}/{Utils.Get(Selected, self.OptionPath)}"
                 except:
                     print("Invalid selection!")
                     Select()
 
             Select()
         else:
-            self.Output = self.Output + Utils.Get(self.List[int(self.Selection)], self.OptionPath)
+            self.Output = f"{self.Output}/{self.Return}/{Utils.Get(self.List[int(self.Selection)], self.OptionPath)}"
         
         return self.Output
 

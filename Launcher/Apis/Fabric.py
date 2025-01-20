@@ -1,5 +1,5 @@
-from Base import Downloader
-from Base import Step
+from .Base import Downloader
+from .Base import Step
 
 import requests
 import json
@@ -16,8 +16,8 @@ class FabricApi(Downloader):
         Final = f"{Loader}/server/jar"
 
         Steps = [
-            Step(Main, "", "", "Select Fabric Version.", "Enter a number"),
-            Step(Main, "", "", "Select Fabric Build.", "Enter a number"),
+            Step(Main, None, None, "Select Fabric Version.", "Enter a number"),
+            Step(Main, None, None, "Select Fabric Build.", "Enter a number"),
         ]
 
         super().__init__(f"{Main}/versions/loader", Steps, Final)
