@@ -5,16 +5,17 @@ from .Server import Server as Base
 from .Server import Config
 
 import json
+import os
 
 class Server(Base):
     def __init__(self, Name, Type: str):
-        self.Directory = f"{Config.Instances}/{Name}"
+        self.Directory = f"{Config.Data["Instances"]}/{Name}"
         self.Server = f"{self.Directory}/Server"
 
         self.Downloader = None
         self.Type = Type
 
-        if not Files.Folder(Config.Instances, Name):
+        if not Files.Folder(Config.Data["Instances"], Name):
             Files.Folder(self.Directory, "Server")
 
             if Type == "Fabric":
@@ -28,6 +29,10 @@ class Server(Base):
             self.MakeConfig()
 
             super().__init__(Name)
+
+    def MakeFiles(self):
+        with open(f"{self.Server}/eula.txt", "x") as HahaFakUMojank:
+            HahaFakUMojank.write("eula=true")
 
     def MakeConfig(self):
         Memory = input("How much memory do you need? ")
