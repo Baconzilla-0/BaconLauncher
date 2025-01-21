@@ -19,7 +19,9 @@ class Step:
         self.Output = self.Path
 
     def Run(self):
+        print(self.Path)
         self.Request = requests.get(f"{self.Path}")
+        print(self.Request.text)
         self.List = json.loads(self.Request.text)
         self.List = Utils.Get(self.List, self.Return)
 

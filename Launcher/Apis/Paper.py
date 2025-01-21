@@ -7,8 +7,8 @@ class PaperApi(Downloader):
         Main = "https://api.papermc.io/v2/projects/paper"
 
         Steps = [
-            Step(Main, "versions", None, "Select Paper Version.", "Enter a number", 43),
-            Step(Main, "builds", None, "Select Paper Build.", "Enter a number", 112),
+            Step(Main, "versions", None, "Select Paper Version.", "Enter a number"),
+            Step(Main, "builds", None, "Select Paper Build.", "Enter a number"),
             "downloads"
         ]
 

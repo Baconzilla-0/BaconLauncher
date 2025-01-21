@@ -1,3 +1,3 @@
 import Launcher
 
-Launcher.Server.Create("TestServer", "Paper")
+Launcher.Server.Create("TestFabric", "Fabric")

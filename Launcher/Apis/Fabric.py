@@ -11,7 +11,7 @@ class FabricApi(Downloader):
         
         Loader = requests.get(f"{Main}/versions/installer")
         Loader = json.loads(Loader.text)
-        Loader = Loader[0]["Version"]
+        Loader = Loader[0]["version"]
 
         Final = f"{Loader}/server/jar"
 

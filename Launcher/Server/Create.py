@@ -27,6 +27,7 @@ class Server(Base):
             self.Downloader.Download(self.Server)
 
             self.MakeConfig()
+            self.MakeFiles()
 
             super().__init__(Name)
 
@@ -41,7 +42,7 @@ class Server(Base):
         Data = {
             "Version": "no idea",
             "Type": self.Type,
-            "Modded": self.Type == "Fabric",
+            "Modded": False, #self.Type == "Fabric",
             "Jar": "Server.jar",
             "Java": Java,
             "Memory": Memory
