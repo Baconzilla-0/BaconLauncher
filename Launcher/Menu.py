@@ -8,7 +8,7 @@ class Menu:
     def Main(self):
         self.List.Show()
           
-        print(f"Select [S] | New... [N]")
+        print(f"Select [S] | New... [N], Exit [E]")
 
         Selection = input(" > ").lower()
         if Selection == "s":
@@ -17,12 +17,13 @@ class Menu:
             Instance.Create()
             self.List.Load()
             self.Main()
+        elif Selection == "e":
+            exit()
         else:
             print("Invalid option!")
 
     def Select(self):
-        self.List.Show()
-        Selection = input("Select an Instance > ")
+        Selection = input("Back [B] | [Index]  > ")
 
         try:
             Selected: Instance = self.List.List[int(Selection)]
@@ -42,6 +43,7 @@ class Menu:
             Selection = input(" > ").lower()
             if Selection == "s":
                 Instance.Start()
+                self.Options(Instance)
             elif Selection == "e":
                 Instance.Edit()
                 self.Options(Instance)

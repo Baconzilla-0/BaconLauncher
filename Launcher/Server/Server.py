@@ -49,11 +49,31 @@ class Server:
             json.dump(Data, File)
 
     def Run(self):
-        LaunchCMD = f'"{self.Java}" -Xmx{self.Memory} -Xms{self.Memory} -jar "./Server.jar"'
+        LaunchCMD = f'{self.Java} -Xmx{self.Memory} -Xms{self.Memory} -jar "./Server.jar"'
 
         if self.NoGui:
-            LaunchCMD = LaunchCMD + " --nogui"
+            LaunchCMD = LaunchCMD  #+ " --nogui"
 
+        def Boot():
+            os.chdir(self.Server)
+            self.Process = subprocess.run(LaunchCMD, capture_output = True) #, capture_output = True)
+        
         print(f"Launch Command: {LaunchCMD}")
 
-        self.Process = subprocess.run(LaunchCMD, capture_output = True)
+        Boot()
+        
+        #self.Process: subprocess.Popen
+
+        #while True:
+        #    Input = input("Say something > ")
+
+        #    Out, Err = self.Process.communicate(Input)
+
+        #    print(Out, Err)
+
+        #Thread = threading.Thread(target=Boot)
+
+        #Thread.start()
+        #Thread.
+
+        #self.Process = subprocess.Popen(Cmds). #, capture_output = True)
