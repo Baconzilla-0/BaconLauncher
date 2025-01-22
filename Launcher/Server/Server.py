@@ -52,7 +52,7 @@ class Server:
         LaunchCMD = f'{self.Java} -Xmx{self.Memory} -Xms{self.Memory} -jar "./Server.jar"'
 
         if self.NoGui:
-            LaunchCMD = LaunchCMD  #+ " --nogui"
+            LaunchCMD = LaunchCMD + " --nogui"
 
         def Boot():
             os.chdir(self.Server)
