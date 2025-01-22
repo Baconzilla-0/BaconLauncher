@@ -1,5 +1,6 @@
 from .Base import Downloader
 from .Base import Step
+from .Base import AdvStep
 
 import requests
 import json
@@ -7,17 +8,21 @@ import json
 class FabricApi(Downloader):
 
     def __init__(self):
-        Main = "https://meta.fabricmc.net/v2"
+        Path = "https://meta.fabricmc.net/v2"
         
-        Loader = requests.get(f"{Main}/versions/installer")
+        Loader = requests.get(f"{Path}/versions/installer")
         Loader = json.loads(Loader.text)
         Loader = Loader[0]["version"]
 
         Final = f"{Loader}/server/jar"
+        Main = f"{Path}/versions"
 
         Steps = [
-            Step(Main, None, None, "Select Fabric Version.", "Enter a number"),
-            Step(Main, None, None, "Select Fabric Build.", "Enter a number"),
+            AdvStep(Main, "game", "version", "loader", "Select Minecraft Version.", "Enter the number which corresponds to your required minecraft version", Filter = ["w", "-"], Reverse=True),
+            Step(Main, None, "loader/version", "Select Fabric Version.", "Enter the number which corresponds to your required fabric-loader version", Reverse=True),
+            Final
         ]
 
-        super().__init__(f"{Main}/versions/loader", Steps, Final)
+        
+
+        super().__init__(Main, Steps)

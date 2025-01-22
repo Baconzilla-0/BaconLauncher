@@ -1,8 +1,11 @@
 from .. import Files
 from .. import Apis
 
+from . import Info
+
 from .Server import Server as Base
 from .Server import Config
+
 
 import json
 import os
@@ -37,15 +40,18 @@ class Server(Base):
 
     def MakeConfig(self):
         Memory = input("How much memory do you need? ")
-        Java = input("What java version do you need? ")
+        Java = input("Which java version do you need? ")
+
+        JarInfo = Info.GetInfo(self)
 
         Data = {
-            "Version": "no idea",
+            "Version": JarInfo["id"],
             "Type": self.Type,
-            "Modded": False, #self.Type == "Fabric",
+            "Modded": self.Type == "Fabric",
             "Jar": "Server.jar",
             "Java": Java,
-            "Memory": Memory
+            "Memory": Memory,
+            "NoGui": True
         }
 
         with open(f"{self.Directory}/Config.json", "w") as File:

@@ -7,8 +7,8 @@ class PaperApi(Downloader):
         Main = "https://api.papermc.io/v2/projects/paper"
 
         Steps = [
-            Step(Main, "versions", None, "Select Paper Version.", "Enter a number"),
-            Step(Main, "builds", None, "Select Paper Build.", "Enter a number"),
+            Step(Main, "versions", None, "Select Minecraft Version.", "Enter the number which corresponds to your required minecraft version"),
+            Step(Main, "builds", None, "Select Paper Version.", "Enter the number corresponding to your required papermc version"),
             "downloads"
         ]
 
