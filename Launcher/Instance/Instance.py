@@ -1,3 +1,6 @@
+import os
+
+
 from ..Server import Server
 from .. import Config
 
@@ -7,6 +10,9 @@ class Instance:
         self.Directory: str = f"{Config.Data["Instances"]}/{Name}"
 
         self.Server = Server(Name)
+
+    def Delete(self):
+        os.rmdir(self.Directory)
 
     def Edit(self):
         print(f"Editing: {self.Name}")

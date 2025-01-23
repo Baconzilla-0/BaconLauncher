@@ -6,7 +6,7 @@ except:
     SysInstalled = False
 
 Name = "BaconLauncher"
-Requirements = ["requests", "sys", "os", "subprocess", "json"]
+Requirements = ["time", "requests", "sys", "os", "subprocess", "json"]
 
 print(f"Welcome to the {Name} Setup")
 
