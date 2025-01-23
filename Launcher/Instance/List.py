@@ -13,6 +13,9 @@ class InstanceList:
         self.List = []
         Instances = Config.Data["Instances"]
 
+        Path = Config.Data["Instances"].split("/")
+        Files.Folder(Path[0], Path[-1])
+
         for Name in os.listdir(Instances):
             Directory = os.path.join(Instances, Name)
             if os.path.isdir(Directory):
