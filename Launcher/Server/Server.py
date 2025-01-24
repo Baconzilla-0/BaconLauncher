@@ -1,19 +1,22 @@
 from .. import Config
+#from .Console import Console
 
 import os
 import subprocess
 import json
+import threading
 
 class Server:
     def __init__(self, Name: str):
         self.Directory: str = f"{Config.Data["Instances"]}/{Name}"
         self.Server = f"{self.Directory}/Server"
-
+        #self.Console = Console(self)
         self.Config: str = f"{self.Directory}/Config.json"
-        
+        self.Running = False
+
         self.LoadConfig()
 
-        self.Process = None
+        self.Process: subprocess.Popen = None
 
     def LoadConfig(self):
         self.Data: dict = json.load(open(self.Config, "r"))
@@ -48,6 +51,12 @@ class Server:
         with open(self.Config, "w") as File:
             json.dump(Data, File)
 
+    def Stop(self):
+        self.Running = False
+        self.Process.kill()
+        #self.Console.Send("stop")
+        #self.Console.Close()
+
     def Run(self):
         LaunchCMD = f'{self.Java} -Xmx{self.Memory} -Xms{self.Memory} -jar "./Server.jar"'
 
@@ -56,24 +65,12 @@ class Server:
 
         def Boot():
             os.chdir(self.Server)
-            self.Process = subprocess.run(LaunchCMD, capture_output = True) #, capture_output = True)
-        
-        print(f"Launch Command: {LaunchCMD}")
+            self.Process = subprocess.Popen(LaunchCMD, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, text=True)
+            self.Running = True
+            os.chdir("../../")
 
         Boot()
+
         
-        #self.Process: subprocess.Popen
 
-        #while True:
-        #    Input = input("Say something > ")
-
-        #    Out, Err = self.Process.communicate(Input)
-
-        #    print(Out, Err)
-
-        #Thread = threading.Thread(target=Boot)
-
-        #Thread.start()
-        #Thread.
-
-        #self.Process = subprocess.Popen(Cmds). #, capture_output = True)
+        print(f"Launch Command: {LaunchCMD}")            

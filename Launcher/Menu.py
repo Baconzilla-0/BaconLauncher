@@ -36,19 +36,41 @@ class Menu:
     def Options(self, Instance: Instance.Instance):
         def Display():
             print(f"Selected: {Instance.Name}")
-            print(f"Start [S] | Edit [E] | Delete [D] | Back [B]")
+
+            Options = f"Start [S] | Edit [E] | Delete [D] | Back [B]"
+
+            if Instance.Server.Running:
+                Options = f"Stop [S] | Console [C] | Back [B]"
+
+            print(Options)
         
         def Input():
             Display()
 
-            Selection = input(" > ").lower()
+            Selection = input(" > ").lower().strip("\n")
+            # Running
             if Selection == "s":
-                Instance.Start()
+                if Instance.Server.Running:
+                    Instance.Server.Stop()
+                else:
+                    Instance.Start()
+
                 self.Options(Instance)
-            elif Selection == "e":
+            elif Selection == "c" and Instance.Server.Running:
+                #Instance.Server.Console.Open()
+                print("Unimplimented.")
+                #while Instance.Server.Console.Active:
+                #    Command = input("Server Console > ")
+
+                #    Instance.Server.Console.Send(Command)
+
+                self.Options(Instance)
+
+            # Not running
+            elif Selection == "e" and not Instance.Server.Running:
                 Instance.Edit()
                 self.Options(Instance)
-            elif Selection == "d":
+            elif Selection == "d" and not Instance.Server.Running:
                 print(f"Are you sure? [Deleting: {Instance.Name}]")
                 Sure = input("Y/N > ")
 
